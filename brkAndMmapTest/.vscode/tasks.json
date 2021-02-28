@@ -1,0 +1,33 @@
+{
+
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "g++ build release version",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-O2",
+                "${file}",
+                "-o",
+                "${workspaceFolder}/test.out"
+            ],
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "g++ build debug version",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${workspaceFolder}/debug.out"
+            ],
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+    ]
+    
+}
