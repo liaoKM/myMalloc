@@ -26,11 +26,11 @@ int main()
    cout<<((int*)startBrk)[0]<<endl;//读写测试
    //mmap
    cout<<"----------mmap---------------"<<endl;
-   int* mmap1=(int*)mmap(0, pagesize , PROT_READ | PROT_WRITE, MAP_ANON|MAP_PRIVATE,-1, 0); 
+   int* mmap1=(int*)mmap(0, 1*pagesize , PROT_READ | PROT_WRITE, MAP_ANON|MAP_PRIVATE,-1, 0); 
    cout<<mmap1<<endl;
-   int* mmap2=(int*)mmap(0, pagesize , PROT_READ | PROT_WRITE, MAP_ANON|MAP_PRIVATE,-1, 0); 
+   int* mmap2=(int*)mmap(0, 2*pagesize , PROT_READ | PROT_WRITE, MAP_ANON|MAP_PRIVATE,-1, 0); 
    cout<<mmap2<<endl;
-   int* mmap3=(int*)mmap(0, pagesize , PROT_READ | PROT_WRITE, MAP_ANON|MAP_PRIVATE,-1, 0); 
+   int* mmap3=(int*)mmap(0, 3*pagesize , PROT_READ | PROT_WRITE, MAP_ANON|MAP_PRIVATE,-1, 0); 
    cout<<mmap3<<endl;
 
    ///////////////brk/////////////////
@@ -60,7 +60,29 @@ int main()
    }
    
    cout<<"----------munmap---------------"<<endl;
-   if(munmap(mmap3,pagesize)!=-1)
+   if(munmap(mmap3+pagesize/4,pagesize)!=-1)//释放小于申请
+   {
+      cout<<"munmap success"<<endl;
+      //cout<<mmap3[0]<<endl;//segmentation fault
+   }
+   else
+   {
+      cout<<"munmap fail"<<endl;
+      //cout<<errno<<endl;
+      perror("");
+   }
+   if(munmap(mmap3,pagesize)!=-1)//释放小于申请
+   {
+      cout<<"munmap success"<<endl;
+      //cout<<mmap3[0]<<endl;//segmentation fault
+   }
+   else
+   {
+      cout<<"munmap fail"<<endl;
+      //cout<<errno<<endl;
+      perror("");
+   }
+   if(munmap(mmap3+2*pagesize/4,pagesize)!=-1)//释放小于申请
    {
       cout<<"munmap success"<<endl;
       //cout<<mmap3[0]<<endl;//segmentation fault
