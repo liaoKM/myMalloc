@@ -40,4 +40,3 @@ todo:
     1.mem chunk部分改为单链表。  
     2.延后链表建立时间，当chunk被分配时才从span中割出。内存写入大小不变，但有利于cpu乱序执行掩盖内存io。  
     3.spanCache建立动态阈值，可以参考tcp拥塞控制。  
-    4.乱入template，spanlist与chunklist单独实现。  
