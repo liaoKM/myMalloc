@@ -11,7 +11,7 @@ v1 版本
 
 v2 版本
 ---------
-与常归内存库不同。v2版本内存申请释放 __前提__：__由线程a申请的内存必由线程a释放__。  
+主要对非跨线程释放进行优化
 优化：  
     threadCache直接向spanCache申请span（tcmalloc：threadCache向centerCache申请objlist）,简化 __分配回收流程__ ，确保多线程申请释放小块内存并写入时 __不会出现cache一致性__ 问题。  
 
